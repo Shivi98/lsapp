@@ -48,19 +48,12 @@ class AttendenceController extends Controller
      */
     public function show(attendence $attendence)
     {
-        dd($attendence);
-        $resultset = DB::table('attendences')->where(function($query) use ($attendence) {
-            $query->where('id', '=', 2);});
-        //
-       /* $attendence = DB::table('attendences')
-        ->orderByRaw('updated_at - created_at DESC')
-        ->get();*/
-      /* $attend = DB::table('attendences')
-        ->select(DB::raw('count(*) as user_count, subject_id'))
-        ->where('student_id', '=', $attendence)
-        ->groupBy('subject_id')
-        ->get();*/
-        return response()->json(['inf'=>$resultset],201);
+        // Instead of 2 we can use any variable
+        // Testing is required
+
+       $result = DB::table('attendence')->where('student_id', 2);
+
+        return $result;
     }
 
     /**

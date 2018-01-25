@@ -14,14 +14,15 @@ class CreateAttendencesTable extends Migration
     public function up()
     {
         Schema::create('attendences', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
-            $table->foreign('id')->references('id')->on('students')->onDelete('cascade');
+            
+            // Bhai haath judva le please apni indentation thik rakha kar
+
+            $table->increments('id');
             $table->integer('student_id')->unsigned();
-                $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->string('subject_id');    
-                $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-   
-             $table->timestamps();
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
