@@ -14,10 +14,9 @@ class CreateSubjectsTable extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
-           // $table->increments('id');
-             $table->string('id'); 
-             $table->primary('id');
-             //$table->unique('subid');
+           
+            $table->string('id'); 
+            $table->primary('id');
             $table->integer('teach_id')->unsigned();
                 $table->foreign('teach_id')->references('id')->on('teaches')->onDelete('cascade');;
             $table->text('sub_name');

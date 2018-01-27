@@ -8,13 +8,11 @@ use DB;
 class AttendenceController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return attendence::all();//
     }
 
     /**
@@ -56,15 +54,18 @@ class AttendenceController extends Controller
      * @param  \App\attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function show(attendence $attendence)
-    {
-        // Instead of 2 we can use any variable
-        // Testing is required
-
-       $result = DB::table('attendence')->where('student_id', 2);
-
-        return $result;
+    
+    public function show( $attendence)//yeh function ek bache ke sare subjects me alag alag attendence dega
+    {   
+        $attend = DB::table('attendences')
+        ->select(DB::raw('count(*) as total_attendence, subject_id'))
+        ->where('student_id','=',$attendence)
+        ->groupBy('subject_id')
+        ->get();
+       
+        return response()->json(['inf'=>$attend],201);
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -74,7 +75,7 @@ class AttendenceController extends Controller
      */
     public function edit(attendence $attendence)
     {
-        //
+      
     }
 
     /**
@@ -86,7 +87,7 @@ class AttendenceController extends Controller
      */
     public function update(Request $request, attendence $attendence)
     {
-        //
+        
     }
 
     /**
@@ -95,8 +96,16 @@ class AttendenceController extends Controller
      * @param  \App\attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function destroy(attendence $attendence)
-    {
-        //
+    public function destroy( $attendence)
+    {   // yeh function delete nhi krega 
+        //bhai yeh function sirf return krega ek subject me sabhi bachho ki attendence kinni hai
+        //show function ek bache ke sabhi subject return krega ye uska ulta hai
+        $attend = DB::table('attendences')
+        ->select(DB::raw('count(*) as user_count, student_id'))
+        ->where('subject_id','=',$attendence)
+        ->groupBy('student_id')
+        ->get();
+       
+        return response()->json(['inf'=>$attend],201);
     }
 }

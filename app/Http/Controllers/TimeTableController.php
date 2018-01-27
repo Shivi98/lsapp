@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\student;
+use App\time_table;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class TimeTableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return  student::all();
+        //
+        return  time_table::all();
     }
 
     /**
@@ -36,9 +37,14 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+
      $student= new student;
-     $student->sname=$request->input('sname');
-     $student->class=$request->input('clas');
+     $student->subject_id=$request->input('subject_id');
+     $student->clas=$request->input('clas');
+     $student->section=$request->input('section');
+     $student->start_time=$request->input('start_time');
+     $student->end_time=$request->input('end_time');
+
      $student->save();
      return response()->json(['inf'=>$student],201); 
     }
@@ -46,25 +52,21 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\student  $student
+     * @param  \App\time_table  $time_table
      * @return \Illuminate\Http\Response
      */
-    public function show(student $student)
+    public function show(time_table $time_table)
     {
         //
-        $student =$student::find($student);
-        //$inf=inf::find(1)->attends()->pluck('subjec_id');
-        return response()->json(['inf'=>$student],201); 
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\student  $student
+     * @param  \App\time_table  $time_table
      * @return \Illuminate\Http\Response
      */
-    public function edit(student $student)
+    public function edit(time_table $time_table)
     {
         //
     }
@@ -73,32 +75,22 @@ class StudentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\student  $student
+     * @param  \App\time_table  $time_table
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  $student)
+    public function update(Request $request, time_table $time_table)
     {
         //
-        $student =student::find($student);
-        $student->sname=$request->input('sname');
-        $student->class=$request->input('clas');
-        $student->save();
-        return response()->json(['inf'=>$student],201);
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\student  $student
+     * @param  \App\time_table  $time_table
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $student)
+    public function destroy(time_table $time_table)
     {
         //
-        $student =student::find($student);
-        $student->delete();
-        return 'deleted';
-
     }
 }
