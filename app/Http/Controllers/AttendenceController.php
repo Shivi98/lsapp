@@ -40,6 +40,13 @@ class AttendenceController extends Controller
         foreach($records as $record){
             $attendence->create($record);
         }
+
+    /* $counter = $records.length();
+        for($i = 0; $i < $counter; $i += 1){
+            $attendence->student_id = $records[$i].student_id;
+            $attendence->subject_id = $records[$i].subject_id;
+            $attendence->save();
+        } */
         return redirect('/');
     }
 
