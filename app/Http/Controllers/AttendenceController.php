@@ -9,13 +9,11 @@ use DB;
 class AttendenceController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        return attendence::all();//
     }
 
     /**
@@ -36,7 +34,24 @@ class AttendenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //$var_name->property = $request->input('property');
+       //$attendence->property = $request->input('property');
+       
+     /* $attendence = new attendence();
+       $records = $request->query();
+       return $records;
+        foreach($records as $record){
+           $attendence->create($record);
+           }*/
+           $counter = $request.length();
+           return response()->json(['inf'=>$counter],201);;
+      /* for($i = 0; $i < $counter; $i += 1){
+            $attendence->student_id = $records[$i].student_id;
+            $attendence->subject_id = $records[$i].subject_id;
+            $attendence->save();
+       }*/
+        
+           // return response()->json(['inf'=>$counter],201);;
 
     }
 
@@ -46,22 +61,18 @@ class AttendenceController extends Controller
      * @param  \App\attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function show(attendence $attendence)
-    {
-        dd($attendence);
-        $resultset = DB::table('attendences')->where(function($query) use ($attendence) {
-            $query->where('id', '=', 2);});
-        //
-       /* $attendence = DB::table('attendences')
-        ->orderByRaw('updated_at - created_at DESC')
-        ->get();*/
-      /* $attend = DB::table('attendences')
-        ->select(DB::raw('count(*) as user_count, subject_id'))
-        ->where('student_id', '=', $attendence)
+    
+    public function show( $attendence)//yeh function ek bache ke sare subjects me alag alag attendence dega
+    {   
+        $attend = DB::table('attendences')
+        ->select(DB::raw('count(*) as total_attendence, subject_id'))
+        ->where('student_id','=',$attendence)
         ->groupBy('subject_id')
-        ->get();*/
-        return response()->json(['inf'=>$resultset],201);
+        ->get();
+       
+        return response()->json(['inf'=>$attend],201);
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -71,7 +82,7 @@ class AttendenceController extends Controller
      */
     public function edit(attendence $attendence)
     {
-        //
+      
     }
 
     /**
@@ -83,7 +94,7 @@ class AttendenceController extends Controller
      */
     public function update(Request $request, attendence $attendence)
     {
-        //
+        
     }
 
     /**
@@ -92,8 +103,16 @@ class AttendenceController extends Controller
      * @param  \App\attendence  $attendence
      * @return \Illuminate\Http\Response
      */
-    public function destroy(attendence $attendence)
-    {
-        //
+    public function destroy( $attendence)
+    {   // yeh function delete nhi krega 
+        //bhai yeh function sirf return krega ek subject me sabhi bachho ki attendence kinni hai
+        //show function ek bache ke sabhi subject return krega ye uska ulta hai
+        $attend = DB::table('attendences')
+        ->select(DB::raw('count(*) as user_count, student_id'))
+        ->where('subject_id','=',$attendence)
+        ->groupBy('student_id')
+        ->get();
+       
+        return response()->json(['inf'=>$attend],201);
     }
 }
