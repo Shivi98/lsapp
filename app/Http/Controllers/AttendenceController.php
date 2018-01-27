@@ -34,18 +34,19 @@ class AttendenceController extends Controller
     public function store(Request $request)
     {
         $attendence = new attendence();
-        $records = $request->query();
+        // Change data to whatever your wrapper is 
+        $records = $request->input('data');
         foreach($records as $record){
             $attendence->create($record);
         }
-
+        return $records;
     /* $counter = $records.length();
         for($i = 0; $i < $counter; $i += 1){
             $attendence->student_id = $records[$i].student_id;
             $attendence->subject_id = $records[$i].subject_id;
             $attendence->save();
         } */
-        return redirect('/');
+        //return redirect('/');
     }
 
     /**
@@ -55,7 +56,7 @@ class AttendenceController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function show( $attendence)//yeh function ek bache ke sare subjects me alag alag attendence dega
+    public function show( $attendence)
     {   
         $attend = DB::table('attendences')
         ->select(DB::raw('count(*) as total_attendence, subject_id'))

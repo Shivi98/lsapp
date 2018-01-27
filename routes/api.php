@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::apiresource('/student','studentcontroller');
 Route::apiresource('/teach','teachcontroller');
-Route::apiresource('/attendence','attendencecontroller');
+Route::apiresource('/attendence','AttendenceController');
 Route::apiresource('/subject','subjectcontroller');
 Route::apiresource('/index','indexcontroller');
 Route::apiresource('/time_table','timetablecontroller');
