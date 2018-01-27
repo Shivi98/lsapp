@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\attendence;
@@ -36,8 +35,12 @@ class AttendenceController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+        $attendence = new attendence();
+        $records = $request->query();
+        foreach($records as $record){
+            $attendence->create($record);
+        }
+        return redirect('/');
     }
 
     /**
